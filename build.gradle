@@ -1,0 +1,25 @@
+apply plugin: 'java'
+
+repositories {
+    jcenter()
+}
+
+sourceSets {
+    main {
+        java.srcDir file('src/')
+        resources.srcDir file('src/main/resources')
+    }
+}
+
+ext.dependenciesDir = 'lib'
+
+
+task documentProject(type: Exec) {
+    dependsOn build
+    group = "Execution"
+    description = "Run the main class with ExecTask"
+    commandLine "java", "-classpath", sourceSets.main.runtimeClasspath.getAsPath(), "DocTask", configurations.runtime.artifacts.files.getAsPath()
+}
+
+dependencies {
+}
